@@ -1,4 +1,101 @@
-<x-guest-layout>
+@extends('layouts.frontend_master')
+@section('content')
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Registration ToDo</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
+                            <div class="form-group ">
+                                <div class="mb-3 row">
+                                    <label for="name" class="form-label col-2">Name</label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" id="name">
+                                        @error('name')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="" class="form-label col-2">Email</label>
+                                    <div class="col-10">
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email">
+                                        @error('email')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="" class="form-label col-2">Password</label>
+                                    <div class="col-10">
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
+                                        <input type="checkbox" id="showPassword" class="text-right"> Show Password
+                                        @error('password')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="" class="form-label col-2">Confirm Password</label>
+                                    <div class="col-10">
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" id="confirm_password">
+                                        <input type="checkbox" id="showConfirmPassword"> Show Password
+                                        @error('password')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('footer_script')
+    <script>
+        $(document).ready(function() {
+            $('#showPassword').on('change', function() {
+                var passwordField = $('#password');
+                var passwordFieldType = passwordField.attr('type');
+
+                if (passwordFieldType === 'password') {
+                    passwordField.attr('type', 'text');
+                } else {
+                    passwordField.attr('type', 'password');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#showConfirmPassword').on('change', function() {
+                var passwordField = $('#confirm_password');
+                var passwordFieldType = passwordField.attr('type');
+
+                if (passwordFieldType === 'password') {
+                    passwordField.attr('type', 'text');
+                } else {
+                    passwordField.attr('type', 'password');
+                }
+            });
+        });
+    </script>
+@endsection
+{{-- <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -49,4 +146,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
