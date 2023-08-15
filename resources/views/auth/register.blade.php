@@ -36,7 +36,7 @@
                                     <label for="" class="form-label col-2">Password</label>
                                     <div class="col-10">
                                         <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
-                                        <input type="checkbox" id="showPassword" class="text-right"> Show Password
+                                        <input type="checkbox" id="showPassword"> Show Password
                                         @error('password')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
