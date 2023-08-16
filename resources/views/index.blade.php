@@ -21,7 +21,7 @@
                                 </div>
                             @else
                                 <div class="text-center">
-                                    <a href="{{ route('todo.create') }}" class="text-center">
+                                    <a href="{{ route('dashboard') }}" class="text-center">
                                         Go to Dashboard
                                     </a>
                                 </div>

@@ -14,7 +14,8 @@ class TodoController extends Controller
     public function index()
     {
         $todo_items = Todo::latest()->get();
-        return view('todo.index',compact('todo_items'));
+        $deleted_todo_items = Todo::onlyTrashed()->get();
+        return view('todo.index',compact('todo_items','deleted_todo_items'));
     }
 
     /**
@@ -61,6 +62,15 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
+
+        if( $todo->item_name == $request->item_name){
+            $todo->item_name;
+        }else{
+            $request->validate([
+                'item_name' => 'unique:todos,item_name'
+            ]);
+        }
+        
         $todo->item_name = $request->item_name;
         $todo->save();
         return redirect('todo');
@@ -71,6 +81,19 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+        return back();
+    }
+
+    public function todo_restore($id)
+    {
+        Todo::withTrashed()->where('id',$id)->restore();
+        return back();
+    }
+
+    public function todo_empty($id)
+    {
+        Todo::withTrashed()->where('id',$id)->forceDelete();
+        return back();
     }
 }
